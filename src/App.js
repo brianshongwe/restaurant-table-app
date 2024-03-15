@@ -20,15 +20,29 @@ function App() {
       });
   }, []);
 
+  const handleOrder = () => {
+    console.log("Working");
+  };
+
   return (
     <div className="">
       <div className="flex items-center justify-center">
-        <h1 className="text-[30px] font-bold">Menu</h1>
+        <section className="w-full bg-black header-banner h-96">
+          <div className="flex flex-col items-center justify-center h-full">
+            <h1 className="text-3xl font-semibold text-center text-white md:text-4xl lg:text-5xl poppins">
+              Menu
+            </h1>
+            <h1 className="text-sm font-semibold text-center text-white md:text-xl lg:text-xl poppins">
+              Best food waiting for your belly
+            </h1>
+          </div>
+        </section>
       </div>
       <div className="grid grid-cols-3 gap-4 lg:grid-cols-6">
         {/* Grid container */}
         {records.map((d, i) => (
-          <div
+          <button
+            onClick={handleOrder}
             key={i}
             className="p-4 transition duration-700 transform bg-white border border-gray-100 rounded-lg hover:shadow-xl hover:scale-105"
           >
@@ -39,7 +53,7 @@ function App() {
                 alt={`Image of ${d.name}`} // Descriptive alt text
               />
             )}
-          </div>
+          </button>
         ))}
       </div>
     </div>
