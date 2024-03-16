@@ -1,31 +1,33 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
 
 function App() {
-  const [columns, setColumns] = useState([]);
+  // State to hold the menu records
   const [records, setRecords] = useState([]);
 
-  // Fetch menu data on mount
+  // Fetch menu data on component mount
   useEffect(() => {
     axios
-      .get("http://localhost:1010/menu")
+      .get("http://localhost:3000/db")
       .then((res) => {
-        setColumns(Object.keys(res.data[0]));
-        setRecords(res.data);
+        setRecords(res.data.menu);
+        console.log(res.data.menu);
       })
       .catch((error) => {
-        console.error("Error fetching menu data:", error);
-        // Handle error gracefully, e.g., display an error message
+        console.error("Error fetching menu data:", error.message);
+        console.log("Error details:", error);
       });
   }, []);
 
+  // Function to handle order button click
   const handleOrder = () => {
     console.log("Working");
+    //
   };
 
   return (
-    <div className="">
+    <div>
       <div className="flex items-center justify-center">
         <section className="w-full bg-black header-banner h-96">
           <div className="flex flex-col items-center justify-center h-full">
@@ -39,18 +41,19 @@ function App() {
         </section>
       </div>
       <div className="grid grid-cols-3 gap-4 lg:grid-cols-6">
-        {/* Grid container */}
-        {records.map((d, i) => (
+        {/* Map through menu records and render each item */}
+        {records.map((item) => (
           <button
-            onClick={handleOrder}
-            key={i}
+            key={item.id}
             className="p-4 transition duration-700 transform bg-white border border-gray-100 rounded-lg hover:shadow-xl hover:scale-105"
+            onClick={handleOrder}
           >
-            {d.image && ( // Render image only if it exists
+            {item.image && (
+              // Render image if available
               <img
-                className="w-full px-8 py-3 pt-2 my-4 text-white transition duration-300 transform rounded-full h-52 focus:outline-none poppins "
-                src={d.image}
-                alt={`Image of ${d.name}`} // Descriptive alt text
+                className="w-full px-8 py-3 pt-2 my-4 text-white transition duration-300 transform rounded-full h-52 focus:outline-none poppins"
+                src={item.image}
+                alt={`Image of ${item.name}`}
               />
             )}
           </button>

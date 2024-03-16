@@ -6,12 +6,10 @@ import Order from "./components/Order";
 function AppRouter() {
   return;
   <BrowserRouter>
-    <App>
-      <Routes>
-        <Route path="/" element={App} />
-        <Route path="/add-order" element={Order} />
-      </Routes>
-    </App>
+    <Routes>
+      <Route path="/" element={App} />
+      <Route path="/add-order" element={Order} />
+    </Routes>
   </BrowserRouter>;
 }
 
